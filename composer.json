@@ -1,15 +1,18 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
+    "name": "churchcms/church-cms",
+    "description": "Open source church management system built with Laravel and Vue.",
     "keywords": [
-        "framework",
-        "laravel"
+        "church",
+        "church-management",
+        "cms",
+        "laravel",
+        "ministry"
     ],
     "license": "MIT",
     "type": "project",
     "require": {
         "php": "^7.3|^7.4",
- 
+
         "artesaos/seotools": "^0.19.1",
         "barryvdh/laravel-dompdf": "^0.9.0",
         "botman/botman": "^2.6",
@@ -17,7 +20,7 @@
         "brozot/laravel-fcm": "*",
         "cyber-duck/laravel-excel": "^2.1",
         "fideloper/proxy": "^4.0",
-    
+
         "google/cloud": "^0.139.0",
         "google/cloud-language": "^0.24.0",
         "jdavidbakr/mail-tracker": "^3.0",
@@ -32,7 +35,7 @@
         "league/csv": "^9.2",
         "league/flysystem-aws-s3-v3": "^1.0",
         "maatwebsite/excel": "^3.1",
-        "nckg/laravel-impersonate": "^3.0",   
+        "nckg/laravel-impersonate": "^3.0",
         "santigarcor/laratrust": "5.2.*",
         "spatie/laravel-activitylog": "^3.6",
         "spatie/laravel-analytics": "^3.10",
@@ -77,15 +80,15 @@
         }
     },
     "repositories": [
-       
+
         {
             "type": "path",
             "url": "./custompackages/brozot/laravel-fcm"
         }
 
-     
-        
-    
+
+
+
     ],
     "scripts": {
         "post-root-package-install": [

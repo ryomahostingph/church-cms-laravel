@@ -3,21 +3,17 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use Carbon\Carbon;
-use Spatie\Analytics\Period;
-use Exception;
-use Analytics;
+use Illuminate\Support\Facades\Log;
 
 class GoogleAnalyticsController extends Controller
-{ 
+{
     /**
      * Create a new controller instance.
      *
      * @return void
      */
     public function __construct(){
-        
+
     }
 
     /**
@@ -26,13 +22,40 @@ class GoogleAnalyticsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(){
-        $mostVisitedpage = Analytics::fetchMostVisitedPages(Period::days(7));
-        $pageViews = Analytics::fetchVisitorsAndPageViews(Period::days(7));
-        $referrer = Analytics::fetchTopReferrers(Period::days(7));
-        $userType = Analytics::fetchUserTypes(Period::days(7));
-        $browsers = Analytics::fetchTopBrowsers(Period::days(7));
-        
-        return view('/admin/analytics/index',['mostVisitedpage' => $mostVisitedpage, 'pageViews' => $pageViews, 'referrer' => $referrer, 'userType' => $userType, 'browsers' => $browsers ]);
+        $emptyData = [
+            'mostVisitedpage' => [],
+            'pageViews' => [],
+            'referrer' => [],
+            'userType' => [],
+            'browsers' => [],
+        ];
+
+        $periodClass = 'Spatie\\Analytics\\Period';
+
+        if (!app()->bound('analytics') || !class_exists($periodClass)) {
+            Log::warning('Google Analytics package is not available. Rendering analytics page with empty data.');
+
+            return view('/admin/analytics/index', $emptyData);
+        }
+
+        try {
+            $analytics = app('analytics');
+            $period = $periodClass::days(7);
+
+            return view('/admin/analytics/index', [
+                'mostVisitedpage' => $analytics->fetchMostVisitedPages($period),
+                'pageViews' => $analytics->fetchVisitorsAndPageViews($period),
+                'referrer' => $analytics->fetchTopReferrers($period),
+                'userType' => $analytics->fetchUserTypes($period),
+                'browsers' => $analytics->fetchTopBrowsers($period),
+            ]);
+        } catch (\Throwable $e) {
+            Log::error('Failed to fetch Google Analytics data.', [
+                'message' => $e->getMessage(),
+            ]);
+
+            return view('/admin/analytics/index', $emptyData);
+        }
     }
 
 }

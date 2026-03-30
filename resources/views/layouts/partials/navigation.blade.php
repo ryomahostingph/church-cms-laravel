@@ -36,19 +36,12 @@
         <div class="navbar-menu">
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto flex items-center font-headings">
-                <!-- Authentication Links -->
-                <!-- <li class="mx-2"><a href="">{{ __('Features') }}</a></li> -->
-                <!-- <li class="mx-2"><a href="">{{ __('Demo') }}</a></li> -->
-                @if (Auth::user())
-                    <li class="mx-2 hidden lg:block"><a href="{{ url('/pricing') }}">{{ __('Pricing') }}</a></li>
-                @endif
+
                 @guest
                     <li class="nav-item px-2">
                         <a class="nav-link" href="{{ route('login') }}" id="login">{{ __('Login') }}</a>
                     </li>
-                    <li class="nav-item px-2">
-                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                    </li>
+
                 @else
                     <!-- start -->
                     <li>

@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
     //dashboard
         //index
         Route::get('/dashboard', 'DashboardController@index')->name( 'dashboard' );
@@ -510,7 +512,7 @@
 
     //Settings
 
-    //Route::get('settings/','SettingController@index');
+
     Route::get('/settings/generalsettings','Setting\GeneralController@create');
     Route::post('/settings/generalsettings','Setting\GeneralController@store');
     Route::get('/settings/maintenancesettings','Setting\MaintenanceController@create');

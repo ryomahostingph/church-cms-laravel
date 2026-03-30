@@ -11,7 +11,7 @@
             </div>
         </div>
     </div>
-    @include('partials.message')
+  @include('partials.message')
     <div class="flex my-3 flex-col lg:flex-row">
         <div class="bg-white shadow leading-loose px-4 w-full">
             <ul class="list-reset">

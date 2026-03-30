@@ -45,6 +45,21 @@
                     <span class="mx-3 whitespace-no-wrap">Posts</span>
                 </a>
             </li>
+
+            <li class="py-3 px-3 hover:font-semibold {{ Request::segment('2') == 'generalsettings' ? 'active' : '' }}">
+                <a href="{{ url('/admin/settings/generalsettings') }}" class="flex items-center">
+                    <img src="{{ url('uploads/icons/settings.svg') }}" class="w-4 h-4"
+                        style="filter: brightness(0) invert(1);">
+                    <span class="mx-3 whitespace-no-wrap">General Settings</span>
+                </a>
+            </li>
+            <li class="py-3 px-3 hover:font-semibold {{ Request::segment('2') == 'maintenancesettings' ? 'active' : '' }}">
+                <a href="{{ url('/admin/settings/maintenancesettings') }}" class="flex items-center">
+                    <img src="{{ url('uploads/icons/maintenance.svg') }}" class="w-4 h-4"
+                        style="filter: brightness(0) invert(1);">
+                    <span class="mx-3 whitespace-no-wrap">Maintenance Settings</span>
+                </a>
+            </li>
             <li class="py-3 px-3 hover:font-semibold {{ Request::segment('3') == 'seodetail' ? 'active' : '' }}">
                 <a href="{{ url('/admin/settings/seodetail') }}" class="flex items-center">
                     <img src="{{ url('uploads/icons/seo.svg') }}" class="w-4 h-4"
@@ -412,45 +427,5 @@
         </a>
     </li>
 
-    <!--<li class="py-2 px-3">
-        <a href="#" class="flex items-center">
-            <img src="{{ url('uploads/icons/ministry.svg') }}" class="w-4 h-4">
-            <span class="mx-3">Ministry</span>
-        </a>
-    </li>
 
-    <li class="py-2 px-3 {{ Request::segment('2') == 'meetings' ? 'active' : '' }}">
-        <a href="{{ url('/admin/meetings') }}" class="flex items-center whitespace-no-wrap">
-            <img src="{{ url('uploads/icons/attendance.svg') }}" class="w-4 h-4">
-            <span class="mx-3 whitespace-no-wrap">Meeting Attendees</span>
-        </a>
-    </li>
-
-    <li class="py-2 px-3">
-        <a href="#" class="flex  items-center">
-            <img src="{{ url('uploads/icons/library.svg') }}" class="w-4 h-4">
-            <span class="mx-3">Library</span>
-        </a>
-    </li>
-
-    <li class="py-2 px-3">
-        <a href="#" class="flex  items-center">
-            <img src="{{ url('uploads/icons/reminder.svg') }}" class="w-4 h-4">
-            <span class="mx-3">Reminders</span>
-        </a>
-    </li>
-
-    <li class="py-2 px-3">
-        <a href="#" class="flex items-center">
-            <img src="{{ url('uploads/icons/tools.svg') }}" class="w-4 h-4">
-            <span class="mx-3">Tools</span>
-        </a>
-    </li>
-
-    <li class="py-2 px-3 {{ Request::segment('2') == 'settings' ? 'active' : '' }}">
-        <a href="#" class="flex items-center">
-            <img src="{{ url('uploads/icons/settings.svg') }}" class="w-4 h-4">
-            <span class="mx-3">Settings</span>
-        </a>
-    </li> -->
 </ul>

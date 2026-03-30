@@ -12,7 +12,6 @@ use Carbon\Carbon;
 
 class User extends Authenticatable
 {
-    use \Nckg\Impersonate\Traits\CanImpersonate;
     use LaratrustUserTrait;
     use PresentableTrait;
     use HasApiTokens;
@@ -87,29 +86,29 @@ class User extends Authenticatable
     }
     public function patner()
     {
-      
+
          $patner=$this->members()->whereHas('userprofile', function($query) {
               $query->where('relation', 'patner');
           });
-        
+
         return $patner;
     }
     public function father()
     {
-      
+
          $father=$this->members()->whereHas('userprofile', function($query) {
               $query->where('relation', 'father');
           });
-        
+
         return $father;
     }
     public function mother()
     {
-      
+
          $mother=$this->members()->whereHas('userprofile', function($query) {
               $query->where('relation', 'mother');
           });
-        
+
         return $mother;
     }
 
@@ -169,7 +168,7 @@ class User extends Authenticatable
     {
         $query->where(function ($query) use($name)
             {
-                $query->where('name','LIKE',$name.'%'); 
+                $query->where('name','LIKE',$name.'%');
             });
         return $query;
     }
@@ -178,7 +177,7 @@ class User extends Authenticatable
     {
         $query->wherehas('userprofile',function ($query) use($firstname)
             {
-                $query->where('firstname','LIKE',$firstname.'%'); 
+                $query->where('firstname','LIKE',$firstname.'%');
             });
         return $query;
     }
@@ -187,7 +186,7 @@ class User extends Authenticatable
     {
         $query->wherehas('userprofile',function ($query) use($lastname)
             {
-                $query->where('lastname','LIKE',$lastname.'%'); 
+                $query->where('lastname','LIKE',$lastname.'%');
             });
         return $query;
     }
@@ -196,7 +195,7 @@ class User extends Authenticatable
     {
         $query->wherehas('userprofile',function ($query) use($gender)
             {
-                $query->where('gender','=',$gender); 
+                $query->where('gender','=',$gender);
             });
         return $query;
     }
@@ -205,7 +204,7 @@ class User extends Authenticatable
     {
         $query->wherehas('userprofile',function ($query) use($membership_type)
             {
-                $query->where('membership_type','Like','%'.$membership_type.'%'); 
+                $query->where('membership_type','Like','%'.$membership_type.'%');
             });
         return $query;
     }
@@ -214,7 +213,7 @@ class User extends Authenticatable
     {
         $query->wherehas('userprofile',function ($query) use($marriage_status)
             {
-                $query->where('marriage_status','LIKE','%'.$marriage_status.'%'); 
+                $query->where('marriage_status','LIKE','%'.$marriage_status.'%');
             });
         return $query;
     }
@@ -224,7 +223,7 @@ class User extends Authenticatable
         $query->wherehas('userprofile',function ($query) use($min_age , $max_age)
             {
                 $query->whereYear('date_of_birth','<=',$min_age)
-                      ->whereYear('date_of_birth','>=',$max_age); 
+                      ->whereYear('date_of_birth','>=',$max_age);
             });
         return $query;
     }
@@ -242,7 +241,7 @@ class User extends Authenticatable
     {
         $query->wherehas('userprofile',function ($query) use($baptism)
             {
-                $query->where('was_baptized','LIKE','%'.$baptism.'%'); 
+                $query->where('was_baptized','LIKE','%'.$baptism.'%');
             });
         return $query;
     }
@@ -251,7 +250,7 @@ class User extends Authenticatable
     {
         $query->wherehas('userprofile',function ($query) use($family)
             {
-                $query->where('family','LIKE',$family.'%'); 
+                $query->where('family','LIKE',$family.'%');
             });
         return $query;
     }
@@ -260,7 +259,7 @@ class User extends Authenticatable
     {
         $query->wherehas('userprofile',function ($query) use($profession)
             {
-                $query->where('profession','LIKE',$profession); 
+                $query->where('profession','LIKE',$profession);
             });
         return $query;
     }
@@ -269,7 +268,7 @@ class User extends Authenticatable
     {
         $query->wherehas('userprofile',function ($query) use($mobile_no)
             {
-                $query->where('mobile_no','LIKE',$mobile_no.'%'); 
+                $query->where('mobile_no','LIKE',$mobile_no.'%');
             });
         return $query;
     }
@@ -278,7 +277,7 @@ class User extends Authenticatable
     {
         $query->wherehas('userprofile',function ($query) use($email)
             {
-                $query->where('email','LIKE',$email.'%'); 
+                $query->where('email','LIKE',$email.'%');
             });
         return $query;
     }
@@ -291,7 +290,7 @@ class User extends Authenticatable
                     $que->where('name','LIKE',$location.'%');
                 })->orWhereHas('city', function($q) use($location){
                     $q->where('name','LIKE',$location.'%');
-                }); 
+                });
             });
         return $query;
     }
@@ -300,7 +299,7 @@ class User extends Authenticatable
     {
         $query->wherehas('userprofile',function ($query) use($status)
             {
-                $query->where('status',$status); 
+                $query->where('status',$status);
             });
         return $query;
     }
@@ -318,7 +317,7 @@ class User extends Authenticatable
     public function likes()
     {
         return $this->belongsToMany('App\Models\Sermon', 'likes', 'user_id', 'sermon_id');
-    } 
+    }
 
     public function groupLink()
     {

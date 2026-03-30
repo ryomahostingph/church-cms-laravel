@@ -31,14 +31,14 @@
             </div>
         </div>
     </div>
-    <!-- Scripts -->
+
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/custom.js') }}"></script>
     <script src="{{ asset('js/trix.js') }}"></script>
     <script src="{{ asset('js/attachments.js') }}"></script>
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
-    
+
     @stack('scripts')
 
 

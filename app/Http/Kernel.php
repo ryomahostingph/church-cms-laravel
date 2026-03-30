@@ -22,7 +22,7 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrustProxies::class,
         \Illuminate\Session\Middleware\StartSession::class,
         \Nckg\Impersonate\Impersonate::class,
-        \App\Http\Middleware\SecureHeaders::class, 
+        \App\Http\Middleware\SecureHeaders::class,
 
     ];
 
@@ -74,6 +74,6 @@ class Kernel extends HttpKernel
         'preacher' => \App\Http\Middleware\MustBePreacher::class,
         'role' => \Laratrust\Middleware\LaratrustRole::class,
         'permission' => \Laratrust\Middleware\LaratrustPermission::class,
-        'ability' => \Laratrust\Middleware\LaratrustAbility::class,   
+        'ability' => \Laratrust\Middleware\LaratrustAbility::class,
     ];
 }

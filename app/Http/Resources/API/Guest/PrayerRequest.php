@@ -15,13 +15,14 @@ class PrayerRequest extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'                         =>  $this->id,
-            'requested_person'           =>  $this->user->FullName,
-            'requested_person_avatar'    =>  $this->user->userprofile->AvatarPath,
-            'title'                      =>  $this->title,
-            'description'                =>  $this->description,
-            'status'                     =>  $this->status,
-            'date'                       =>  date('d M Y h:i A',strtotime($this->date)),
+            'id'                         => $this->id,
+            'requested_person'           => $this->submitter_name,
+            'requested_person_avatar'    => $this->user ? $this->user->userprofile->AvatarPath : null,
+            'category'                   => $this->category ? $this->category->display_name : null,
+            'text'                       => $this->text,
+            'status'                     => $this->status,
+            'total_prayers'              => $this->total_participant_count,
+            'date'                       => $this->created_at->format('d M Y h:i A'),
         ];
     }
 }

@@ -1,25 +1,7 @@
 <nav class="navbar bg-white w-full flex  lg:flex-row px-4 lg:px-8 pt-2 justify-between items-center">
     <div class="nav-brand flex items-baseline">
-        @if (\Auth::user())
-            <button class=" block lg:hidden md:hidden mr-3" onclick="showsidebar('res_sidebar')">
-                <span class="navbar-toggler-icon">
-                    <img src="{{ url('uploads/icons/menu.svg') }}" class="w-6 h-6">
-                </span>
-            </button>
+       <img src="{{ asset('uploads/admin/churchcms_admin_logo.png') }}" alt="ChurchCMS Admin Logo" class="w-auto h-10 mr-2">
 
-            @if (Auth::user()->ChurchLogo['meta_value'] != '-')
-                <a class="object-contain" href="{{ route('dashboard') }}">
-                    <img src="{{ Auth::user()->ChurchLogoPath }}" style="height:55px;">
-                </a>
-            @endif
-            <a class="text-lg lg:text-3xl font-exo font-medium text-gray-600" href="{{ route('dashboard') }}">
-                <strong>{{ ucwords(Auth::user()->church->name) }}</strong>
-            </a>
-        @else
-            <a href="{{ url('/') }}">
-                <img src="{{ asset('images/church_cms_logo.jpg') }}" style="height:50px;" alt="ChurchCMS">
-            </a>
-        @endif
     </div>
     <div class="flex flex-col">
         <a class="navbar-nav ml-auto flex items-center text-gray-700">

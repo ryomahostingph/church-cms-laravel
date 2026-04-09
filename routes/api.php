@@ -163,11 +163,9 @@ Route::group([
 
 	Route::post('/prayer_requests/create', 'PrayerRequestsController@store');
 
-	//prayer_responses
+	//prayer_participants
 
-	Route::get('/prayer_responses/{id}', 'PrayerResponsesController@index');
-
-	Route::post('/prayer_responses/create/{id}', 'PrayerResponsesController@store');
+	Route::post('/prayer_participants/{id}', 'PrayerParticipantsController@store');
 
 	//helps
 

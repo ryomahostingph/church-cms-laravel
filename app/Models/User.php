@@ -392,9 +392,9 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Reminder', 'id' ,'entity_id')->where('entity_name','=','App\\Models\\User');
     }
 
-    public function prayerRequest()
+    public function prayers()
     {
-        return $this->hasMany('App\Models\PrayerRequest','user_id','id');
+        return $this->hasMany('App\Models\Prayer', 'user_id', 'id');
     }
 
     public function prayerResponse()

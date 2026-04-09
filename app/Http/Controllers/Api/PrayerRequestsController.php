@@ -5,110 +5,74 @@ namespace App\Http\Controllers\Api;
 use App\Events\Notification\SingleNotificationEvent;
 use App\Http\Resources\API\PrayerRequestUser as PrayerRequestUserResource;
 use App\Http\Resources\API\PrayerRequest as PrayerRequestResource;
-use App\Http\Requests\PrayerAddRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SubmitPrayerRequest;
 use Illuminate\Support\Facades\Auth;
-use App\Models\PrayerRequest;
+use App\Models\Prayer;
 use Illuminate\Http\Request;
-use App\Traits\LogActivity;
 use App\Helpers\SiteHelper;
-use App\Traits\Common;
-use App\Models\Church;
 use Exception;
 use Log;
 
 class PrayerRequestsController extends Controller
 {
-    use LogActivity;
-    use Common;
-
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * List active prayers for the public board (excluding the current user's own prayers).
      */
     public function index()
     {
-        //
+        $prayers = Prayer::forChurch(Auth::user()->church_id)
+            ->active()
+            ->forPublicBoard()
+            ->where('user_id', '!=', Auth::id())
+            ->get();
 
-        $prayer = PrayerRequest::where([['church_id',Auth::user()->church_id],['status','approve'],['publish_at','<=',date('Y-m-d H:i:s')]])->where('user_id','!=',Auth::id())->get();
-        $prayer = PrayerRequestResource::collection($prayer);
-
-        return $prayer;
+        return PrayerRequestResource::collection($prayers);
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * Submit a new prayer request (creates a PENDING prayer).
      */
-    public function store(PrayerAddRequest $request)
+    public function store(SubmitPrayerRequest $request)
     {
-        //
-        try
-        {
-            $prayer = new PrayerRequest;
-
-            $prayer->church_id      = Auth::user()->church_id;
-            $prayer->user_id        = Auth::id();
-            $prayer->title          = $request->title;
-            $prayer->description    = $request->description;
-            $prayer->status         = "pending";
-            $prayer->date           = date('Y-m-d H:i:s',strtotime($request->date));
-            $file = $request->file('image');
-            if($file != null)
-            {
-                $folder = Auth::user()->church_id.'/prayer';
-                $prayer->image  = $this->uploadFile($folder,$file); 
-            }
-            else
-            {
-                $prayer->image = 'uploads/images/prayer.jpg';
-            }
-
+        try {
+            $prayer = new Prayer;
+            $prayer->church_id    = Auth::user()->church_id;
+            $prayer->user_id      = Auth::id();
+            $prayer->category_id  = $request->category_id;
+            $prayer->text         = $request->text;
+            $prayer->original_text = $request->text;
+            $prayer->status       = Prayer::STATUS_PENDING;
             $prayer->save();
 
-            $message = 'Prayer Request Added Successfully';
+            activity()
+                ->performedOn($prayer)
+                ->causedBy(Auth::user())
+                ->useLog('prayer')
+                ->log('Prayer request submitted via app');
 
-             $array = [];
-             $admin = SiteHelper::getAdmin(Auth::user()->church_id);
-             $array['user']     =$admin ;
-             $array['details']  = 'New Prayer Request Received';
+            $array = [];
+            $admin = SiteHelper::getAdmin(Auth::user()->church_id);
+            $array['user']    = $admin;
+            $array['details'] = 'New Prayer Request Received';
+            event(new SingleNotificationEvent($array));
 
-             event(new SingleNotificationEvent($array));
-
-            $ip= $this->getRequestIP();
-            $this->doActivityLog(
-                $prayer,
-                Auth::user(),
-                ['ip' => $ip, 'details' => $_SERVER['HTTP_USER_AGENT'] ],
-                LOGNAME_ADD_PRAYER_REQUEST,
-                $message
-            );
-
-            $res['message'] = $message;
-            return $res;
+            return ['message' => 'Prayer request submitted successfully'];
+        } catch (Exception $e) {
+            Log::error('PrayerRequestsController@store: ' . $e->getMessage());
+            return response()->json(['message' => 'Failed to submit prayer request'], 500);
         }
-        catch(Exception $e)
-        {
-            Log::info($e->getMessage());
-
-        } 
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * List the authenticated user's own prayers.
      */
     public function show()
     {
-        //
-        $prayer = PrayerRequest::where([['user_id',Auth::id()]])->get();
-        $prayer = PrayerRequestUserResource::collection($prayer);
+        $prayers = Prayer::where('user_id', Auth::id())
+            ->orderByDesc('created_at')
+            ->get();
 
-        return $prayer;
+        return PrayerRequestUserResource::collection($prayers);
     }
 }

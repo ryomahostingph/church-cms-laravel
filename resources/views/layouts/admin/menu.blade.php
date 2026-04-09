@@ -471,10 +471,10 @@
 
 
     <li
-        class="py-2 px-3 {{ Request::segment('2') == 'prayerrequests' ? 'active' : '' }} || {{ Request::segment('2') == 'prayerrequest' ? 'active' : '' }}">
-        <a href="{{ url('/admin/prayerrequests') }}" class="flex items-center whitespace-no-wrap">
+        class="py-2 px-3 {{ in_array(Request::segment(2), ['prayerboard', 'prayercategories', 'prayercategory']) ? 'active' : '' }}">
+        <a href="{{ url('/admin/prayerboard') }}" class="flex items-center whitespace-no-wrap">
             <img src="{{ url('uploads/icons/rosary.svg') }}" class="w-4 h-4">
-            <span class="mx-3 whitespace-no-wrap">Prayer Requests</span>
+            <span class="mx-3 whitespace-no-wrap">Prayer Board</span>
         </a>
     </li>
 

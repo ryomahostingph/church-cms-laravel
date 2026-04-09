@@ -163,14 +163,19 @@ class Church extends Model
         return $this->userprofile->where('membership_type','member')->count();
     }
 
-   public function prayerRequest()
+    public function prayers()
     {
-        return $this->hasMany('App\Models\PrayerRequest','church_id','id');
+        return $this->hasMany('App\Models\Prayer', 'church_id', 'id');
     }
 
-    public function prayerResponse()
+    public function prayerCategories()
     {
-        return $this->hasMany('App\Models\PrayerResponse','church_id','id');
+        return $this->hasMany('App\Models\PrayerCategory', 'church_id', 'id');
+    }
+
+    public function prayerParticipants()
+    {
+        return $this->hasMany('App\Models\PrayerParticipant', 'church_id', 'id');
     }
 
     public function help()

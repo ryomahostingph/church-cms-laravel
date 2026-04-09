@@ -816,24 +816,25 @@ use Illuminate\Support\Facades\Route;
         Route::post('/payment/response','PaymentController@response');
     });
 
-    //prayer_requests
-    Route::get('/prayerrequest/list/{status}','PrayerRequestsController@list');
+    // Prayer Board
+    Route::get('/prayerboard', 'PrayerBoardController@index');
+    Route::get('/prayerboard/list/{status}', 'PrayerBoardController@list');
+    Route::get('/prayerboard/{id}', 'PrayerBoardController@show');
+    Route::post('/prayerboard/{id}/approve', 'PrayerBoardController@approve');
+    Route::post('/prayerboard/{id}/reject', 'PrayerBoardController@reject');
+    Route::post('/prayerboard/{id}/mark-answered', 'PrayerBoardController@markAnswered');
+    Route::post('/prayerboard/{id}/pin', 'PrayerBoardController@pin');
+    Route::post('/prayerboard/{id}/unpin', 'PrayerBoardController@unpin');
+    Route::post('/prayerboard/{id}/extend', 'PrayerBoardController@extend');
+    Route::post('/prayerboard/{id}/unpublish', 'PrayerBoardController@unpublish');
 
-    Route::get('/prayerrequests','PrayerRequestsController@index');
-
-    Route::get('/prayerrequest/show/{id}','PrayerRequestsController@show');
-
-    Route::get('/prayerrequest/responses/{id}','PrayerRequestsController@showResponse');
-
-    Route::get('/prayerrequest/approveList/{id}','PrayerRequestsController@approveList');
-    Route::get('/prayerrequest/approve/{id}','PrayerRequestsController@edit');
-    Route::post('/prayerrequest/approve/{id}', 'PrayerRequestsController@update');
-
-    Route::get('/prayerrequest/audio/store/{id}','PrayerRequestsController@createAudio');
-    Route::post('/prayerrequest/audio/store/{id}', 'PrayerRequestsController@storeAudio');
-
-    Route::get('/prayerrequest/create','PrayerRequestAddController@create');
-    Route::post('/prayerrequest/create', 'PrayerRequestAddController@store');
+    // Prayer Categories
+    Route::get('/prayercategories', 'PrayerCategoryController@index');
+    Route::get('/prayercategory/create', 'PrayerCategoryController@create');
+    Route::post('/prayercategory/create', 'PrayerCategoryController@store');
+    Route::get('/prayercategory/edit/{id}', 'PrayerCategoryController@edit');
+    Route::post('/prayercategory/edit/{id}', 'PrayerCategoryController@update');
+    Route::delete('/prayercategory/delete/{id}', 'PrayerCategoryController@destroy');
 
     //helps
         //index

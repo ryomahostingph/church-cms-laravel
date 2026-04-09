@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\Angular;
 use App\Http\Resources\PrayerRequest as PrayerRequestsResource;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use App\Models\PrayerRequest;
+use App\Models\Prayer;
 use Illuminate\Http\Request;
 use App\Models\Church;
 use App\Traits\RegisterUser;
@@ -21,7 +21,7 @@ class PrayerRequestsController extends Controller
     {
         $church = Church::where('slug','=',$slug)->first();
 
-        $prayers = PrayerRequest::where('church_id',$church->id)->paginate(5);
+        $prayers = Prayer::where('church_id', $church->id)->active()->paginate(5);
 
         $prayers = PrayerRequestsResource::collection($prayers);
 
@@ -36,19 +36,17 @@ class PrayerRequestsController extends Controller
 	    	$path = '';
 	    	$user = $this->createGuest($request,$church->id,$path,5);
 	    	if($user){
-	    		$file = $request->file('image');
-	            $path = $this->uploadFile('uploads/images/Prayer',$file);
-
 	    		$create = [
-	    			'church_id'=> $church->id,
-	    			'user_id'=> $user->id,
-	    			'title'=> $request->title,
-	    			'description'=> $request->prayer_msg,
-	    			'image'=> $path,
-	    			'date'=> $request->prayer_date,
-	    			'status' => 'pending',
+	    			'church_id'    => $church->id,
+	    			'user_id'      => $user->id,
+	    			'text'         => $request->prayer_msg,
+	    			'original_text'=> $request->prayer_msg,
+	    			'status'       => Prayer::STATUS_PENDING,
+	    			'member_count'    => 0,
+	    			'guest_count'     => 0,
+	    			'anonymous_count' => 0,
 	    		];
-	    		$prayer_req = PrayerRequest::create($create);
+	    		$prayer_req = Prayer::create($create);
 	    		if ($prayer_req) {
 	    			$success = true;
 	            }

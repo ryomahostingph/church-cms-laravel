@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\Guest;
 
 use App\Http\Resources\API\Guest\PrayerRequest as PrayerRequestResource;
 use App\Http\Controllers\Controller;
-use App\Models\PrayerRequest;
+use App\Models\Prayer;
 
 class PrayerRequestsController extends Controller
 {
@@ -15,8 +15,9 @@ class PrayerRequestsController extends Controller
      */
     public function index($church_id)
     {
-        //
-        $prayer = PrayerRequest::where([['church_id',$church_id],['status','approve']])->get();
+        $prayer = Prayer::where('church_id', $church_id)
+                        ->where('status', Prayer::STATUS_ACTIVE)
+                        ->get();
         $prayer = PrayerRequestResource::collection($prayer);
 
         return $prayer;

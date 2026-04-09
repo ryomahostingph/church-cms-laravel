@@ -37,6 +37,7 @@ Route::group([
     Route::get('/sermon/{id}',   'SermonController@show')->name('web.sermon');
     Route::get('/prayer-requests',  'PrayerRequestController@index')->name('web.prayer');
     Route::post('/prayer-requests', 'PrayerRequestController@store')->name('web.prayer.store')->middleware('throttle:10,1');
+    Route::post('/prayer-requests/{id}/lift', 'PrayerRequestController@lift')->name('web.prayer.lift')->middleware('throttle:30,1');
     Route::get('/help-requests',    'HelpRequestController@index')->name('web.help');
     Route::post('/help-requests',   'HelpRequestController@store')->name('web.help.store')->middleware('throttle:10,1');
     Route::get('/contact',          'ContactController@show')->name('web.contact');

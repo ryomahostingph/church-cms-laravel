@@ -21,18 +21,19 @@ class Kernel extends ConsoleKernel
             \App\Console\Commands\Test\CheckPushNotification::class,
 
         //
-            \App\Console\Commands\CheckSubscription::class, 
+            \App\Console\Commands\CheckSubscription::class,
             \App\Console\Commands\CheckSubscriptionExpired::class,
-            \App\Console\Commands\CheckMail::class,  
-            \App\Console\Commands\CheckSms::class,   
+            \App\Console\Commands\CheckMail::class,
+            \App\Console\Commands\CheckSms::class,
             \App\Console\Commands\CheckBirthday::class,
-            \App\Console\Commands\CheckAnniversary::class,  
-            \App\Console\Commands\CheckNotification::class,  
-            \App\Console\Commands\CheckHelp::class,  
-            \App\Console\Commands\CheckPrayer::class,  
-            \App\Console\Commands\CheckMailQueue::class,  
-            \App\Console\Commands\CheckQuote::class, 
-            \App\Console\Commands\CheckGetResponse::class,   
+            \App\Console\Commands\CheckAnniversary::class,
+            \App\Console\Commands\CheckNotification::class,
+            \App\Console\Commands\CheckHelp::class,
+            \App\Console\Commands\CheckPrayerExpiry::class,
+            \App\Console\Commands\CheckPrayerCleanup::class,
+            \App\Console\Commands\CheckMailQueue::class,
+            \App\Console\Commands\CheckQuote::class,
+            \App\Console\Commands\CheckGetResponse::class,
     ];
 
     /**
@@ -52,7 +53,7 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('gego:checksubscriptionexpired')
                  ->daily()
-                 ->withoutOverlapping();   
+                 ->withoutOverlapping();
 
         $schedule->command('gego:checkbirthday')
                  ->daily()
@@ -72,7 +73,7 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('gego:checkmail')
                  ->hourly()
-                 ->withoutOverlapping(); 
+                 ->withoutOverlapping();
 
         $schedule->command('gego:checkmailqueue')
                  ->everyminute()
@@ -82,17 +83,21 @@ class Kernel extends ConsoleKernel
                  ->hourly()
                  ->withoutOverlapping();
 
-        $schedule->command('gego:checkprayer')
-                 ->hourly()
+        $schedule->command('gego:checkprayerexpiry')
+                 ->daily()
+                 ->withoutOverlapping();
+
+        $schedule->command('gego:checkprayercleanup')
+                 ->daily()
                  ->withoutOverlapping();
 
         $schedule->command('gego:checkquote')
                  ->hourly()
                  ->withoutOverlapping();
-                 
+
         $schedule->command('gego:checkgetresponse')
                  ->daily()
-                 ->withoutOverlapping();   
+                 ->withoutOverlapping();
     }
 
     /**

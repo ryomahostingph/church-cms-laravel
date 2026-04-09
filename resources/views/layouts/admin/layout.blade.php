@@ -4,7 +4,7 @@
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" href="{{ url(\Config::get('settings.favicon')) }}">
-    <title>{{ \config::get('settings.sitetitle') }} :: Control Panel</title>
+    <title> ChurchCMS :: Admin Panel</title>
     @include('layouts.partials._favicon')
 
     <!-- Styles -->

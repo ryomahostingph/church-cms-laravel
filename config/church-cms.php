@@ -183,3 +183,5 @@ defined('LOGNAME_DELETE_RULE') or define('LOGNAME_DELETE_RULE','delete_rule');
 defined('LOGNAME_ADD_WEBHOOK') or define('LOGNAME_ADD_WEBHOOK','add_webhook');
 defined('LOGNAME_EDIT_WEBHOOK') or define('LOGNAME_EDIT_WEBHOOK','edit_webhook');
 defined('LOGNAME_DELETE_WEBHOOK') or define('LOGNAME_DELETE_WEBHOOK','delete_webhook');
+defined('LOGNAME_PRINT_MEMBERSHIP_CARD') or define('LOGNAME_PRINT_MEMBERSHIP_CARD','printmembershipcard');
+defined('LOGNAME_PRINT_MEMBERSHIP_CARD_FOR_ALL') or define('LOGNAME_PRINT_MEMBERSHIP_CARD_FOR_ALL','printmembershipcardforall');

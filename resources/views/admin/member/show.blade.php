@@ -203,6 +203,8 @@
                             <a href="#"
                                 class="capitalize text-gray-700 rounded px-2 py-1 ml-2 font-medium send_sms my-1 lg:my-0 md:my-1">messaging</a>
 
+                            <a href="{{url('/admin/member/view/'.$user->name)}}" class="capitalize text-gray-700 rounded px-2 py-1 ml-2 font-medium my-1 lg:my-0 md:my-1">Generate membership card</a>
+
                             <a href="{{ url('/admin/member/add?ref_name=' . $user->name) }}"
                                 class="capitalize text-gray-700 rounded px-2 py-1 ml-2 font-medium my-1 lg:my-0 md:my-1">add
                                 family member</a>

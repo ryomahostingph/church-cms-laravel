@@ -11,7 +11,7 @@
                 <portal-target name="search"></portal-target>
                 <portal-target name="memberfilter"></portal-target>
             </div>
-            <div class="relative flex items-center w-1/4 lg:justify-end">
+            <div  class="relative flex items-center w-full lg:w-2/5 md:w-2/5 lg:justify-end">
                 <div class="flex items-center" dusk="add-button">
                     <a href="{{ url('/admin/member/add/') }}"
                         class="no-underline text-white  px-4 mx-1 flex items-center custom-green py-1 justify-center rounded">
@@ -30,6 +30,11 @@
                         class="no-underline text-white px-4 mx-1 flex items-center custom-green py-1 rounded">
                         <span class="mx-1 text-sm font-semibold">Import</span>
                     </a>
+                </div>
+                 <div class="">
+                    <a href="{{ url('/admin/membershipCard/create') }}" id="import-button" class="no-underline text-white  px-2 my-3 mx-1 flex items-center custom-green py-1">
+                        <span class="text-xs font-semibold">Generate Membership Card</span>
+                    </a> 
                 </div>
             </div>
         </div>

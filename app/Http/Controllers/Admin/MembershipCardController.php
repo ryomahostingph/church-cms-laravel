@@ -160,11 +160,13 @@ public function print_new($name)
      */
     public function printAll($usertype)
     {
+
+       
         //
         try
         {
             $church=Church::where('id',Auth::user()->church_id)->first(); 
-            $users = User::ByChurch($church->id)->ByRole(5)->ByMembershipsType($usertype)->ByStatus('active')->get()->chunk(2);
+            $users = User::ByChurch($church->id)->ByRole(5)->ByStatus('active')->get()->chunk(2);
 
             $array['users']=$users;
             $array['church']=$church;

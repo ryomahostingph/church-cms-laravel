@@ -19,8 +19,15 @@ class SermonController extends Controller
 
     public function show($id)
     {
-        $sermon = Sermon::with(['user', 'sermonlinks'])->findOrFail($id);
+        $sermon = Sermon::with(['user.userprofile', 'sermonlinks'])->findOrFail($id);
 
-        return view('theme::sermon', compact('sermon'));
+        $recommended = Sermon::with('user')
+            ->where('church_id', $sermon->church_id)
+            ->where('id', '!=', $sermon->id)
+            ->orderBy('created_at', 'desc')
+            ->limit(4)
+            ->get();
+
+        return view('theme::sermon', compact('sermon', 'recommended'));
     }
 }

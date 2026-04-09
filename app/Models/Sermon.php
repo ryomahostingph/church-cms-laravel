@@ -92,7 +92,7 @@ class Sermon extends Model
 
     public function sermonlinks()
     {
-        return $this->hasMany('App\Models\SermonLink','sermons_id','id');
+        return $this->hasMany('App\Models\SermonLink','sermons_id','id')->orderBy('date','asc');
     }
 
     public function vote()

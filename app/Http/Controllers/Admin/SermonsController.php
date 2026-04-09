@@ -63,7 +63,7 @@ class SermonsController extends Controller
     public function show($id)
     {
         $sermon = Sermon::where('id',$id)->first();
-        $sermonlinks = SermonLink::where('sermons_id',$id)->paginate(5);
+        $sermonlinks = SermonLink::where('sermons_id',$id)->orderBy('date','asc')->paginate(5);
         if(Gate::allows('sermon',$sermon))
         {
             return view('/admin/sermon/show',['sermon' => $sermon , 'sermonlinks' => $sermonlinks]);

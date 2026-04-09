@@ -678,9 +678,21 @@ use Illuminate\Support\Facades\Route;
 
     //sermon
     Route::group(['middleware' => ['permission:read-sermons']], function() {
-        Route::get('/sermons', 'SermonsController@index');
-    Route::get('/sermon/show/{id}','SermonsController@show');
-    Route::get('/download/sermon/{id}','SermonsController@download');
+        Route::get('/sermons',               'SermonsController@index');
+        Route::get('/sermon/show/{id}',      'SermonsController@show');
+        Route::get('/sermon/create',         'SermonsController@create');
+        Route::post('/sermon/save',          'SermonsController@store');
+        Route::get('/sermon/edit/{id}',      'SermonsController@edit');
+        Route::post('/sermon/edit/{id}',     'SermonsController@update');
+        Route::delete('/sermon/delete/{id}', 'SermonsController@destroy');
+        // sermon links
+        Route::get('/links/{sermons_id}',           'SermonLinkController@create');
+        Route::post('/links/{sermons_id}',          'SermonLinkController@store');
+        Route::post('/links/update/{id}',           'SermonLinkController@update');
+        Route::post('/links/validateedit/{id}',     'SermonLinkController@validateedit');
+        Route::get('/links/edit/{id}',              'SermonLinkController@edit');
+        Route::delete('/links/delete/{id}',         'SermonLinkController@destroy');
+        Route::get('/download/sermon/{id}',         'SermonLinkController@getDownload');
     });
 
     //Bulletins

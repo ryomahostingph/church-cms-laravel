@@ -30,6 +30,7 @@
         "maatwebsite/excel": "^3.1",
         "nckg/laravel-impersonate": "^4.0",
         "santigarcor/laratrust": "^7.2",
+        "simplesoftwareio/simple-qrcode": "^4.2",
         "spatie/laravel-activitylog": "^4.2",
         "spatie/laravel-medialibrary": "^10.0",
         "spatie/laravel-sitemap": "^6.0",

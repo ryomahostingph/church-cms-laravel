@@ -47,7 +47,7 @@ class SermonLink extends Model
       * @var array
      */
     protected $fillable = [
-        'church_id' , 'user_id' , 'sermons_id' , 'type' , 'location' , 'date' , 'url'
+        'church_id', 'user_id', 'sermons_id', 'title', 'date', 'video_link', 'audio_link', 'pdf_link',
     ];
 
     /**

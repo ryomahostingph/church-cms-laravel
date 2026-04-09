@@ -69,18 +69,14 @@ class SermonLinkController extends Controller
             $sermon->church_id  = Auth::user()->church_id;
             $sermon->user_id    = Auth::id();
             $sermon->sermons_id = $sermons_id;
-            $sermon->type       = $request->type;
-            $sermon->location   = $request->location;
+            $sermon->title      = $request->title;
             $sermon->date       = date('Y-m-d',strtotime($request->date));
-            if($request->type!='document')
-            {
-                $sermon->url=$request->url;
-            }
-            else
-            {
-                $file = $request->file('url');
-                $path = $this->uploadFile('/uploads/sermons/documents'.'/'.Auth::user()->church_id,$file);
-                $sermon->url=$path;
+            $sermon->video_link = $request->video_link ?: null;
+            $sermon->audio_link = $request->audio_link ?: null;
+
+            if ($request->hasFile('pdf_link')) {
+                $path = $this->uploadFile('/uploads/sermons/documents'.'/'.Auth::user()->church_id, $request->file('pdf_link'));
+                $sermon->pdf_link = $path;
             }
 
             $sermon->save();
@@ -152,18 +148,14 @@ class SermonLinkController extends Controller
         {
             $links = SermonLink::where('id',$id)->first();
 
-            $links->type      = $request->type;
-            $links->location  = $request->location;
-            $links->date      = date('Y-m-d',strtotime($request->date));
-            if($request->type==='document')
-            {
-                $file = $request->file('url');
-                $path = $this->uploadFile('/uploads/sermons/documents'.'/'.Auth::user()->church_id,$file);
-                $links->url=$path;
-            }
-            else
-            {
-                $links->url=$request->url;
+            $links->title      = $request->title;
+            $links->date       = date('Y-m-d',strtotime($request->date));
+            $links->video_link = $request->video_link ?: null;
+            $links->audio_link = $request->audio_link ?: null;
+
+            if ($request->hasFile('pdf_link')) {
+                $path = $this->uploadFile('/uploads/sermons/documents'.'/'.Auth::user()->church_id, $request->file('pdf_link'));
+                $links->pdf_link = $path;
             }
             $links->save();
 

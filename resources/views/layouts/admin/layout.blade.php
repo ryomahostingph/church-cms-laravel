@@ -44,6 +44,43 @@
 
 
 </body>
+ <style>
+      body {
+        font-family: Arial, sans-serif;
 
+        height: 100vh;
+        gap: 40px;
+      }
+
+      .card {
+        width: 400px;
+        height: 260px;
+        border-radius: 15px;
+        /* background: url("back.png") no-repeat center/cover; */
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+/*        padding: 6px 10px 30px 10px;*/
+       padding: 15px 10px 2px 16px;
+        color: #000;
+          margin-left: auto;
+         margin-right: auto;
+      }
+
+      .company-name {
+        font-size: 20px;
+        font-weight: bold;
+      }
+
+      .slogan {
+        font-size: 12px;
+        color: #555;
+      }
+
+      .website {
+        text-align: center;
+        font-size: 13px;
+        color: #2196f3;
+      }
+    </style>
 
 </html>

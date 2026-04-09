@@ -14,25 +14,15 @@ class EditSermonLink extends JsonResource
      */
     public function toArray($request)
     {
-         if($this->type=='document')
-        {
-            $url=$this->UrlPath;
-        }
-        else
-        {
-            $url= $this->url;
-        }
-        return 
-        [
-            //'id'=>$this->id,
+        return [
             'church_id'  => $this->church_id,
             'user_id'    => $this->user_id,
             'sermons_id' => $this->sermons_id,
-            'type'       => $this->type,
-            'location'   => $this->location,
+            'title'      => $this->title,
             'date'       => date('Y-m-d', strtotime($this->date)),
-           // 'url'        => $this->UrlPath,
-              'url'           =>  $url,
+            'video_link' => $this->video_link,
+            'audio_link' => $this->audio_link,
+            'pdf_link'   => $this->pdf_link ? $this->getFilePath($this->pdf_link) : null,
         ];
     }
 }

@@ -190,3 +190,5 @@ defined('LOGNAME_DELETE_WEBHOOK') or define('LOGNAME_DELETE_WEBHOOK','delete_web
 defined('LOGNAME_ADD_POST_CATEGORY') or define('LOGNAME_ADD_POST_CATEGORY','add_post_category');
 defined('LOGNAME_EDIT_POST_CATEGORY') or define('LOGNAME_EDIT_POST_CATEGORY','edit_post_category');
 defined('LOGNAME_DELETE_POST_CATEGORY') or define('LOGNAME_DELETE_POST_CATEGORY','delete_post_category');
+defined('LOGNAME_PRINT_MEMBERSHIP_CARD') or define('LOGNAME_PRINT_MEMBERSHIP_CARD','printmembershipcard');
+defined('LOGNAME_PRINT_MEMBERSHIP_CARD_FOR_ALL') or define('LOGNAME_PRINT_MEMBERSHIP_CARD_FOR_ALL','printmembershipcardforall');

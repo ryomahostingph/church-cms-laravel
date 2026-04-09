@@ -38,7 +38,15 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-      
+
+        // Church admins (usergroup_id == 3) bypass all permission checks.
+        // Sub-admins (usergroup_id == 4) are subject to normal permission gates.
+        Gate::before(function ($user, $ability) {
+            if ($user->usergroup_id == 3) {
+                return true;
+            }
+        });
+
         Gate::define('event', function ($user, $event) {
             return $user->church_id == $event->church_id;
         });
@@ -93,7 +101,7 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('payment', function ($user, $id) {
             $plans = Plan::pluck('id')->toArray();
-            foreach ($plans as $plan) 
+            foreach ($plans as $plan)
             {
                 if($plan == $id)
                 return true;

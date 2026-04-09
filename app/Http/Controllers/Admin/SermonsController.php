@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SermonRequest;
+use App\Http\Requests\SermonUpdateRequest;
+use App\Events\SermonEvent;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
@@ -68,6 +71,97 @@ class SermonsController extends Controller
         else
         {
             abort(403);
+        }
+    }
+
+    public function create()
+    {
+        return view('admin/sermon/create');
+    }
+
+    public function store(SermonRequest $request)
+    {
+        try
+        {
+            $church_id = Auth::user()->church_id;
+            $user_id   = Auth::id();
+            $file      = $request->file('cover_image');
+            $path      = $this->uploadFile('/uploads/sermons/covers/' . $church_id, $file);
+
+            $sermon              = new Sermon;
+            $sermon->church_id   = $church_id;
+            $sermon->user_id     = $user_id;
+            $sermon->title       = $request->title;
+            $sermon->description = $request->description;
+            $sermon->cover_image = $path;
+            $sermon->save();
+
+            if (env('MAIL_STATUS') === 'on') {
+                event(new SermonEvent($sermon));
+            }
+
+            return redirect('/admin/sermons')->with('successmessage', 'Sermon Created!');
+        }
+        catch (Exception $e)
+        {
+            Log::error($e->getMessage());
+            return redirect()->back()->with('errormessage', 'Could not create sermon.');
+        }
+    }
+
+    public function edit($id)
+    {
+        $sermon = Sermon::where('id', $id)
+            ->where('church_id', Auth::user()->church_id)
+            ->firstOrFail();
+
+        return view('admin/sermon/edit', ['sermon' => $sermon]);
+    }
+
+    public function update(SermonUpdateRequest $request, $id)
+    {
+        try
+        {
+            $sermon = Sermon::where('id', $id)
+                ->where('church_id', Auth::user()->church_id)
+                ->firstOrFail();
+
+            $sermon->title       = $request->title;
+            $sermon->description = $request->description;
+
+            if ($request->hasFile('cover_image')) {
+                $path                = $this->uploadFile('/uploads/sermons/covers/' . Auth::user()->church_id, $request->file('cover_image'));
+                $sermon->cover_image = $path;
+            }
+
+            $sermon->save();
+
+            return redirect('/admin/sermons')->with('successmessage', 'Sermon Updated!');
+        }
+        catch (Exception $e)
+        {
+            Log::error($e->getMessage());
+            return redirect()->back()->with('errormessage', 'Could not update sermon.');
+        }
+    }
+
+    public function destroy($id)
+    {
+        try
+        {
+            $sermon = Sermon::where('id', $id)
+                ->where('church_id', Auth::user()->church_id)
+                ->firstOrFail();
+
+            SermonLink::where('sermons_id', $id)->delete();
+            $sermon->delete();
+
+            return redirect('/admin/sermons')->with('successmessage', 'Sermon deleted.');
+        }
+        catch (Exception $e)
+        {
+            Log::error($e->getMessage());
+            return redirect()->back()->with('errormessage', 'Could not delete sermon.');
         }
     }
 

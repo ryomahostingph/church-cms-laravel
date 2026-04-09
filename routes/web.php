@@ -148,6 +148,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['permission:read-members'] ,
     Route::post('/member/add/validationUser', ['middleware' => ['permission:create-members'], 'uses' => 'MemberAddController@validationUser']);
     Route::get('/member', ['middleware' => ['permission:create-members'], 'uses' => 'MemberAddController@member']);
 
+    Route::get('/member/view/{name}','MembershipCardController@create');
+        Route::get('/member/print/{name}','MembershipCardController@print');
+        Route::get('/membershipCard/create','MembershipCardController@createAll');
+        Route::get('/membershipCard/download/{usertype}','MembershipCardController@printAll');
+        
     Route::get('/member/show/details/{name}', ['middleware' => ['permission:update-members'], 'uses' =>'MemberController@showdetails']);
     Route::get('/member/show/activity/{name}', ['middleware' => ['permission:update-members'], 'uses' =>'MemberController@showactivity']);
     Route::get('/member/show/{name}', ['middleware' => ['permission:update-members'], 'uses' => 'MemberController@show']);

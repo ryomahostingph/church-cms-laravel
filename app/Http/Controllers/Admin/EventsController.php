@@ -137,7 +137,7 @@ class EventsController extends Controller
 
             event(new PushNotificationEvent($array));
 
-            $message=('Events Added Successfully');
+            $message='Events Added Successfully';
 
             $ip= $this->getRequestIP();
             $this->doActivityLog(

@@ -44,13 +44,21 @@
                                         <p class="font-bold text-base text-gray-700 capitalize">{{ bulletin.name }}</p>
                                         <p class="font-semibold text-sm text-gray-700 capitalize">{{ bulletin.date }}</p>
                                         <p class="font-medium text-xs text-gray-500 capitalize flex items-center py-1">
-                                            <a :href="url+'/admin/bulletin/download/'+bulletin.id">Download File</a> 
-                                        </p>    
+                                            <a :href="url+'/admin/bulletin/download/'+bulletin.id">Download File</a>   <a 
+  :href="url + '/admin/bulletin/edit/' + bulletin.id"
+  class="flex items-center text-white px-3 py-1  rounded"
+>
+  ✏️
+</a>
+                                        </p>
+
+     
                                     </div>
                                     <div class="flex items-right">
                                         <a href="#" @click="deleteBulletin(bulletin.id)" id="remove_bulletin" class="left-auto delete-bulletin">
                                             <img :src="url+'/uploads/icons/cancel.svg'" class="w-3 h-3 m-3">
                                         </a>
+
                                     </div>
                                     </div>
                                 </div>

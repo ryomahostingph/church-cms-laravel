@@ -18,7 +18,7 @@ class ShowGallery extends JsonResource
              'id'=>$this->id,
              'church_id'=>$this->church_id,
              //'gallery_id'=>$this->gallery_id,
-             'path'        => $this->FullPath,
+             'path'      => $this->FullPath,
              //'updated_at'  => date('d-m-Y H:i:s', strtotime($this->updated_at)),
 
         ];

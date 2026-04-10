@@ -203,6 +203,14 @@ Route::group(['prefix' => 'admin', 'middleware' => ['permission:read-bulletins']
     Route::get('/bulletin/create', ['middleware' => ['permission:create-bulletins'], 'uses' => 'BulletinsController@create']);
     Route::post('/bulletin/create', ['middleware' => ['permission:create-bulletins'], 'uses' => 'BulletinsController@store']);
 
+
+    Route::get('/bulletin/edit/{id}', ['middleware' => ['permission:create-bulletins'], 'uses' => 'BulletinsController@edit']);
+     Route::get('/bulletin/getdetails/{id}', ['middleware' => ['permission:create-bulletins'], 'uses' => 'BulletinsController@getdetails']);
+
+    Route::post('/bulletin/update/{id}', ['middleware' => ['permission:create-bulletins'], 'uses' => 'BulletinsController@update']);
+
+
+
     Route::get('/bulletin/download/{id}', ['middleware' => ['permission:view-bulletins'], 'uses' => 'BulletinsController@downloadattachments']);
 
 });

@@ -9,7 +9,7 @@
                 </div>
 
                 <div class="flex items-center justify-end">
-                    <div class="w-32 relative">
+                    <div class="w-40 relative">
                         <a href="#" class="text-sm rounded px-2 py-1 flex items-center justify-between btn btn-primary submit-btn w-full" @click="showeventlink()" id="show">
                             <span>Create Event</span>
                             <img :src="this.url+'/uploads/icons/arrow-down.svg'" class="w-2 h-2">
@@ -17,7 +17,7 @@
                         <div class="border create_event absolute z-40 w-full bg-white" v-bind:class="[this.show_event_link==1?'block':'hidden']">
                             <ul class="list-reset text-xs text-gray-700 leading-loose py-1">
                                 <li class="px-2">
-                                    <a href="#" id="private" @click="createEvents('private')">Create Private Event</a>
+                        <a href="#" id="private" @click="createEvents('private')">Create Private Event</a>
                                 </li>
                                 <li class="px-2">
                                     <a href="#" id="public" @click="createEvents('public')">Create Public Event</a>
@@ -314,8 +314,9 @@
 
                 axios.post('/admin/events/create',formData,{headers: {'Content-Type': 'multipart/form-data'}}).then(response => {
                     this.success=response.data.success;
+                    //alert(this.success);
                     this.closeModal();
-                    window.location.reload();
+                    //window.location.reload();
                 }).catch(error => {
                     this.errors = error.response.data.errors;
                 });

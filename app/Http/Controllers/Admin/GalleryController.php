@@ -52,6 +52,8 @@ class GalleryController extends Controller
 
         $gallery = $gallery->get();
 
+        //dd($gallery);
+
         return view('admin.gallery.index',['count' => $count , 'subscription' => $subscription , 'gallery' => $gallery]);
     }
 
@@ -175,7 +177,7 @@ class GalleryController extends Controller
     {
         $gallery = Gallery::where([['id',$id],['church_id',Auth::user()->church_id]])->first();
 
-        if(count($gallery)>0)
+        if($gallery!=null)
         {
             if(Gate::allows('gallery',$gallery))
             {
@@ -196,6 +198,8 @@ class GalleryController extends Controller
     {
         $gallery = Gallery::where('church_id',$church_id)->get();
         $gallery = ShowGalleryResource::collection($gallery);
+
+        //dd()
         return $gallery;
     }
 

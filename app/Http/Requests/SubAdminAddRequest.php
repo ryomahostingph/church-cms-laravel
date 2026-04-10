@@ -165,7 +165,7 @@ class SubAdminAddRequest extends FormRequest
             'pincode.digits:6'                      =>'Pincode should be 6 digits',
 
             'avatar.required'                       =>'Avatar is required',
-            'avatar.mimes'                          =>'Choose jpg,jpeg,png file',
+            'avatar.mimes'                          =>'Choose jpg,jpeg,png,webp file',
             
             'notes.string'                          =>'Enter Valid Notes',
             'notes.check_notes'                     =>'Enter Valid Notes',

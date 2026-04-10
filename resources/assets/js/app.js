@@ -124,6 +124,7 @@ Vue.component('add-invitee', require('./components/videoconference/addInvitee.vu
 //Bulletin
 Vue.component('bulletin-tab', require('./components/bulletin/listTab.vue').default);
 Vue.component('create-bulletin', require('./components/bulletin/Create.vue').default);
+Vue.component('edit-bulletin', require('./components/bulletin/Edit.vue').default);
 
 //video
 Vue.component('create-audio',require('./components/mediafile/Audio.vue').default);

@@ -14,6 +14,7 @@ use Log;
 use PDF;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use App\Traits\ImageTrait;
+
 class MembershipCardController extends Controller
 { 
     use LogActivity;

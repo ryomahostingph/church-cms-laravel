@@ -16,7 +16,7 @@ use App\Models\Bulletin;
 use App\Traits\Common;
 use Carbon\Carbon;
 use Exception;
-
+use App\Http\Requests\EditBulletinRequest;
 class BulletinsController extends Controller
 {
     use LogActivity;
@@ -184,6 +184,117 @@ class BulletinsController extends Controller
 
         }
     }
+     
+    public function edit($id)
+    {
+        //
+        $count = Bulletin::where('church_id',Auth::user()->church_id)->count();
+        $subscription = Subscription::where('church_id',Auth::user()->church_id)->first();
+
+        return view('/admin/bulletins/edit',['count' => $count , 'subscription' => $subscription]);
+    }
+
+     public function getdetails($id){
+
+         $data = Bulletin::where('id',$id)->first();
+
+         $data['cover_image']=$data->CoverImagePath;
+
+          
+
+         return $data;
+
+     }
+
+    public function update($id,EditBulletinRequest $request)
+    {
+        //
+        try
+        {
+            $bulletin = Bulletin::where('id',$id)->first();
+
+            $bulletin->church_id = Auth::user()->church_id;
+            $bulletin->name = $request->name;
+            $bulletin->type = $request->type;
+
+            if($bulletin->type === "week")
+            {
+                $bulletin->week = $request->week;
+               // $bulletin->cover_image = 'uploads/week.jpg';
+            }
+            if($bulletin->type === "month")
+            {
+                $bulletin->month = $request->month;
+                //$bulletin->cover_image = 'uploads/month.jpg';
+            }
+            $bulletin->year = $request->year;
+
+            $bulletin_file = $request->file('path');
+            if($bulletin_file)
+            {
+                $folder = Auth::user()->church_id.'/bulletins';
+                $bulletin_file_path = $this->uploadFile($folder,$bulletin_file);
+                $bulletin->path = $bulletin_file_path;
+            }
+
+             $cover_image = $request->file('cover_image');
+            if($cover_image)
+            {
+                $folder = Auth::user()->church_id.'/bulletins/cover';
+                $cover_image = $this->uploadFile($folder,$cover_image);
+                $bulletin->cover_image = $cover_image;
+            }
+            //$bulletin->created_by = Auth::id();
+            $bulletin->save();
+
+            $message=('Bulletin Updated Successfully');
+
+            $data=[];
+
+            $data['church_id']=Auth::user()->church_id;
+            $data['message']='Bulletin Updated';
+            $data['type']='bulletin';
+
+            event(new PushEvent($data));
+
+            $array=[];
+
+            $array['church_id']=Auth::user()->church_id;
+            $array['details']='Bulletin Updated';
+
+            event(new PushNotificationEvent($array));
+
+            $ip= $this->getRequestIP();
+            $this->doActivityLog(
+                $bulletin,
+                Auth::user(),
+                ['ip' => $ip, 'details' => $_SERVER['HTTP_USER_AGENT'] ],
+                LOGNAME_ADD_BULLETIN,
+                $message
+            );
+
+            $res['success']="Bulletin Updated Successfully";
+
+            $res['img_path']='';
+
+            if($cover_image)
+            {
+                 $bulletin = Bulletin::where('id',$id)->first();
+                 $res['img_path']=$bulletin->CoverImagePath;
+                //$bulletin->path = $bulletin_file_path;
+            }
+           
+            
+            return $res;
+        }
+        catch (Exception $e)
+        {
+            Log::info($e->getMessage());
+
+        }
+    }
+
+    
 
     /**
      * Remove the specified resource from storage.

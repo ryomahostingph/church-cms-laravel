@@ -1,7 +1,5 @@
 <?php
-
 namespace Database\Seeders;
-
 use App\Models\User;
 use App\Models\Userprofile;
 use Illuminate\Database\Seeder;
@@ -35,16 +33,16 @@ class FamilyTestSeeder extends Seeder
         // ── Member definitions ──────────────────────────────────────────────
         // [relation, family, firstname, gender, date_of_birth, marriage_status, profession, was_baptized]
         $members = [
-            ['partner', 'partner', 'Sarah',  'female', '1988-03-14', 'married',  'teacher',      'yes'],
-            ['child',   'child',   'Ethan',  'male',   '2012-06-22', 'single',   'student',      'no'],
-            ['child',   'child',   'Lily',   'female', '2014-11-05', 'single',   'student',      'no'],
-            ['child',   'child',   'Noah',   'male',   '2017-02-19', 'single',   'student',      'no'],
-            ['child',   'child',   'Emma',   'female', '2019-08-30', 'single',   'student',      'no'],
-            ['father',  'father',  'Robert', 'male',   '1955-09-01', 'married',  'pastor',       'yes'],
-            ['mother',  'mother',  'Grace',  'female', '1960-12-25', 'married',  'home_maker',   'yes'],
-            ['child',   'child',   'Lucas',  'male',   '2010-04-07', 'single',   'student',      'yes'],
-            ['sibling', 'sibling', 'David',  'male',   '1990-04-18', 'married',  'business',     'yes'],
-            ['sibling', 'sibling', 'Ruth',   'female', '1993-01-11', 'single',   'teacher',      'yes'],
+            ['partner', 'partner', 'Sarah',   'female', '1988-03-14', 'married',         'teacher',           'yes'],
+            ['child',   'child',   'Ethan',   'male',   '2012-06-22', 'single',           'student',           'no'],
+            ['child',   'child',   'Lily',    'female', '2014-11-05', 'single',           'student',           'no'],
+            ['child',   'child',   'Noah',    'male',   '2017-02-19', 'single',           'student',           'no'],
+            ['child',   'child',   'Emma',    'female', '2019-08-30', 'single',           'student',           'no'],
+            ['father',  'father',  'Robert',  'male',   '1955-09-01', 'married',          'pastor',            'yes'],
+            ['mother',  'mother',  'Grace',   'female', '1960-12-25', 'married',          'home_maker',        'yes'],
+            ['child',   'child',   'Lucas',   'male',   '2010-04-07', 'single',           'student',           'yes'],
+            ['sibling', 'sibling', 'David',   'male',   '1990-04-18', 'married',          'business',          'yes'],
+            ['sibling', 'sibling', 'Ruth',    'female', '1993-01-11', 'single',           'teacher',           'yes'],
         ];
 
         $count = 0;
@@ -56,13 +54,13 @@ class FamilyTestSeeder extends Seeder
             $user = User::firstOrCreate(
                 ['email' => $email],
                 [
-                    'name'            => "{$firstname} {$lastName}",
-                    'password'        => Hash::make('password'),
-                    'mobile_no'       => '0000000' . str_pad($i, 3, '0', STR_PAD_LEFT),
-                    'church_id'       => $churchId,
-                    'usergroup_id'    => 5,
-                    'ref_id'          => $head->id,
-                    'email_verified'  => 1,
+                    'name'         => "{$firstname} {$lastName}",
+                    'password'     => Hash::make('password'),
+                    'mobile_no'    => '0000000' . str_pad($i, 3, '0', STR_PAD_LEFT),
+                    'church_id'    => $churchId,
+                    'usergroup_id' => 5,          // church member
+                    'ref_id'       => $head->id,  // links to head of household
+                    'email_verified' => 1,
                 ]
             );
 

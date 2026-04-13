@@ -14,7 +14,7 @@ class CreatePageVersionsTable extends Migration
 
         Schema::create('page_versions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('page_id');
+            $table->integer('page_id')->unsigned();
             $table->unsignedInteger('version_number');
             $table->longText('content')->nullable();
             $table->text('description')->nullable();
